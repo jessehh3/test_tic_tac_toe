@@ -14,6 +14,10 @@ function Square(props) {
 }
 
 class Board extends React.Component {
+  static X = 'X'
+  static O = 'O'
+  static FIRST_PLAYER = Board.X
+  static SECOND_PLAYER = Board.O
   static COLUMNS = 3
   static ROWS = 3
 
@@ -21,13 +25,25 @@ class Board extends React.Component {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
+      isFirstPlayer: true,
     };
   }
 
+  currentPlayer() {
+    if(this.state.isFirstPlayer){
+      return Board.FIRST_PLAYER
+    }
+
+    return Board.SECOND_PLAYER
+  }
+
   handleClick(i){
-    const squares = this.state.squares.slice();
-    squares[i] = 'X'
-    this.setState({squares})
+    const squares = [...this.state.squares]
+    squares[i] = this.currentPlayer()
+    this.setState({
+      squares,
+      isFirstPlayer: !this.state.isFirstPlayer
+    })
   }
 
   renderSquare(i) {
@@ -59,7 +75,7 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = 'Next player: X';
+    const status = `Next player: ${this.currentPlayer()}`
 
     return (
       <div>
