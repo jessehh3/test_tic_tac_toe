@@ -101,13 +101,14 @@ class Board extends React.Component {
 }
 
 function GameConfetti({winner}) {
-  const display = winner ? 'initial' : 'none'
+  if(!winner){
+    return null
+  }
 
   return (
     <Confetti
       width={'2000px'}
       height={'2000px'}
-      style={{ display }}
     />
   )
 }
