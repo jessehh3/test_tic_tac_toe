@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Confetti from 'react-confetti'
 import './index.css';
 
 function Square(props) {
@@ -26,6 +27,7 @@ class Board extends React.Component {
     this.state = {
       squares: Array(9).fill(null),
       isFirstPlayer: true,
+      winner: null,
     };
   }
 
@@ -38,8 +40,8 @@ class Board extends React.Component {
   }
 
   status(squares){
-    const winner = calculateWinner(this.state.squares)
-  
+    const {winner} = this.state
+
     if (winner) {
       return `Winner: ${winner}`
     } else {
@@ -50,8 +52,11 @@ class Board extends React.Component {
   handleClick(i){
     const squares = [...this.state.squares]
     squares[i] = this.currentPlayer()
+    const winner = calculateWinner(squares)
+
     this.setState({
       squares,
+      winner,
       isFirstPlayer: !this.state.isFirstPlayer
     })
   }
@@ -87,11 +92,24 @@ class Board extends React.Component {
   render() {
     return (
       <div>
+        <GameConfetti winner={this.state.winner}/>
         <div className="status">{this.status()}</div>
         {this.renderRows()}
       </div>
     );
   }
+}
+
+function GameConfetti({winner}) {
+  const display = winner ? 'initial' : 'none'
+
+  return (
+    <Confetti
+      width={'2000px'}
+      height={'2000px'}
+      style={{ display }}
+    />
+  )
 }
 
 class Game extends React.Component {
