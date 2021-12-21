@@ -105,10 +105,16 @@ function GameConfetti({winner}) {
     return null
   }
 
+  const shape = {
+    X: drawX,
+    O: drawO
+  }
+
   return (
     <Confetti
-      width={'2000px'}
-      height={'2000px'}
+      numberOfPieces={200}
+      recycle={false}
+      drawShape={shape[winner]}
     />
   )
 }
@@ -127,6 +133,26 @@ class Game extends React.Component {
       </div>
     );
   }
+}
+
+function drawX(ctx) {
+  ctx.lineWidth = 15;
+  ctx.beginPath();
+  ctx.moveTo(-20, -20);
+  ctx.lineTo(20, 20);
+  ctx.stroke();
+
+  ctx.moveTo(20, -20);
+  ctx.lineTo(-20, 20);
+  ctx.stroke();
+}
+
+function drawO(ctx) {
+  ctx.lineWidth = 15;
+  ctx.beginPath();
+  ctx.arc(0, 0, 30, 0, 2 * Math.PI, false);
+  ctx.stroke();
+  ctx.closePath()
 }
 
 // ========================================
