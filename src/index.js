@@ -105,6 +105,24 @@ function GameConfetti({winner}) {
     return null
   }
 
+  const colors = [
+    '#de3830',
+    '#d65a2f',
+    '#dc7256',
+    '#ffac3c',
+    '#fccb3c',
+    '#fecfbb',
+    '#ecb9a6',
+    '#e0a289',
+    '#6eb8dd',
+    '#145679',
+    '#ca6336',
+    '#bb2d27',
+    '#97252a',
+    '#791b1b',
+    '#471c0b',
+  ]
+
   const shape = {
     X: drawX,
     O: drawO
@@ -115,6 +133,7 @@ function GameConfetti({winner}) {
       numberOfPieces={200}
       recycle={false}
       drawShape={shape[winner]}
+      colors={colors}
     />
   )
 }
