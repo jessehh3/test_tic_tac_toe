@@ -24,11 +24,15 @@ class Board extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.defaultState();
+  }
+
+  defaultState() {
+    return {
       squares: Array(9).fill(null),
       isFirstPlayer: true,
       winner: null,
-    };
+    }
   }
 
   currentPlayer() {
@@ -89,12 +93,32 @@ class Board extends React.Component {
     }) 
   }
 
+  resetBoard() {
+    this.setState(this.defaultState())
+  }
+
+  resetButton() {
+    return (
+      <button 
+        className='reset'
+        onClick={() => {
+          this.resetBoard()
+        }}
+      >
+        Reset
+      </button>
+    )
+  }
+
   render() {
     return (
       <div>
         <GameConfetti winner={this.state.winner}/>
-        <div className="status">{this.status()}</div>
+        <div className="status">
+          {this.status()}
+        </div>
         {this.renderRows()}
+        {this.resetButton()}
       </div>
     );
   }

@@ -18,6 +18,10 @@ ol, ul {
   margin-bottom: 10px;
 }
 
+.reset {
+  margin-top: 20px;
+}
+
 .square {
   background: lightgray;
   border: 1px solid #999;
